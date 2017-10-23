@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>piwik-analytics test</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../piwik-analytics.html">
+    <link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
+    <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
+
+  </head>
+  <body>
+    <test-fixture id="basic">
+      <template>
+        <piwik-analytics></piwik-analytics>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('piwik-analytics', function() {
+        let basic;
+        setup(function() {
+          basic = fixture('basic');
+        });
+        test('instantiating the element works', function() {
+          assert.equal(basic.is, 'piwik-analytics');
+        });
+      });
+    </script>
+  </body>
+</html>
