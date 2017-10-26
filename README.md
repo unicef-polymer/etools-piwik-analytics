@@ -1,6 +1,6 @@
-# \<epiwik-analytics\>
+# \<etools-piwik-analytics\>
 
-App selector menu
+Piwik Analytics front end integration Polymer component for eTools
 
 ## Usage
 
@@ -9,7 +9,7 @@ Import into app-shell.html file and initialize as the first child element, eg:
 ```
 ...
 </style>
-<piwik-analytics page="[[route.path]]"></piwik-analytics>
+<piwik-analytics page="[[subroute.path]]" user="[[user]]"></piwik-analytics>
 ```
 
 ## Install the Polymer-CLI
