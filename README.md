@@ -2,6 +2,16 @@
 
 App selector menu
 
+## Usage
+
+Import into app-shell.html file and initialize as the first child element, eg:
+
+```
+...
+</style>
+<piwik-analytics page="[[route.path]]"></piwik-analytics>
+```
+
 ## Install the Polymer-CLI
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
