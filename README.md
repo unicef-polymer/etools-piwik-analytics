@@ -1,4 +1,4 @@
-# \<piwik-analytics\>
+# \<epiwik-analytics\>
 
 App selector menu
 

@@ -9,7 +9,7 @@
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../piwik-analytics.html">
+    <link rel="import" href="../etools-piwik-analytics.html">
     <link rel="import" href="../../iron-test-helpers/iron-test-helpers.html">
     <link rel="import" href="../../iron-test-helpers/mock-interactions.html">
 
@@ -17,18 +17,18 @@
   <body>
     <test-fixture id="basic">
       <template>
-        <piwik-analytics></piwik-analytics>
+        <etools-piwik-analytics></etools-piwik-analytics>
       </template>
     </test-fixture>
 
     <script>
-      suite('piwik-analytics', function() {
+      suite('etools-piwik-analytics', function() {
         let basic;
         setup(function() {
           basic = fixture('basic');
         });
         test('instantiating the element works', function() {
-          assert.equal(basic.is, 'piwik-analytics');
+          assert.equal(basic.is, 'etools-piwik-analytics');
         });
       });
     </script>

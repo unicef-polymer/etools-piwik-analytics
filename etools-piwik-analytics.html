@@ -1,22 +1,24 @@
 <link rel="import" href="../polymer/polymer.html">
 
-<dom-module id="piwik-analytics">
-  <script>
-    // _paq array initialization and tracking script
-    var _paq = _paq || [];
-    _paq.push(["trackPageView"]);
-    _paq.push(["enableLinkTracking"]);
-    (function () {
-      var u="//czue-unicef.innocraft.cloud/";
-      _paq.push(["setTrackerUrl", u + "piwik.php"]);
-      _paq.push(["setSiteId", '1']);
-      var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
-      g.type = "text/javascript"; g.defer = true; g.async = true; g.src = u + "piwik.js";
-      s.parentNode.insertBefore(g, s);
-    })();
+<script>
+  // _paq array initialization and tracking script
+  let _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+  (function () {
+    let u="//czue-unicef.innocraft.cloud/";
+    _paq.push(["setTrackerUrl", u + "piwik.php"]);
+    _paq.push(["setSiteId", '1']);
+    let d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
+    g.type = "text/javascript"; g.defer = true; g.async = true; g.src = u + "piwik.js";
+    s.parentNode.insertBefore(g, s);
+  })();
+</script>
 
+<dom-module id="etools-piwik-analytics">
+  <script>
     Polymer({
-      is: 'piwik-analytics',
+      is: 'etools-piwik-analytics',
       properties: {
         page: {
           type: String,
@@ -35,27 +37,27 @@
           case 'EXPORT':
             _paq.push([
               'trackEvent',
-              document.title,
+              this.page,
               'export',
-              e.srcElement.__data__.user.groups.map(g => g.name)
+              this.user.groups.map(g => g.name)
             ])
             break
           // tracks filtered charts on dashboard/trips
           case 'GET CHART':
             _paq.push([
               'trackEvent',
-              document.title,
+              this.page,
               'chart filtered',
-              e.srcElement.__data__.user.groups.map(g => g.name)
+              this.user.groups.map(g => g.name)
             ])
             break
           // tracks drop-down filtering in PMP
           case 'ADD FILTER':
             _paq.push([
               'trackEvent',
-              document.title,
+              this.page,
               'chart filtered',
-              e.srcElement.__data__.user.groups.map(g => g.name)
+              this.user.groups.map(g => g.name)
             ])
         }
       },
@@ -65,7 +67,6 @@
         document.addEventListener('tap', this.trackEvent.bind(this));
         document.addEventListener('keyup', this.typing.bind(this));
         window.onerror = this.error
-        // debugger
       },
 
       // checks if typing is in relevant input field, tracks search bar filtering
@@ -73,9 +74,9 @@
         if (event.path[0].value && event.path[7].id === 'query' && this.queryEntered === false) {
           _paq.push([
             'trackEvent',
-            document.title,
+            this.page,
             'search bar used',
-            event.srcElement.__data__.user.groups.map(g => g.name)
+            this.user.groups.map(g => g.name)
           ])
           this.set('queryEntered', true)
         }
@@ -83,7 +84,7 @@
 
       // handles tracking error messages
       error: function (msg, url, lineNo, columnNo, error) {
-        var message = [
+        let message = [
           'Message: ' + msg,
           'URL: ' + url,
           'Line: ' + lineNo,
@@ -95,14 +96,12 @@
 
       // tracks internal pageviews that aren't picked up with trackPageView
       pageView: function() {
-        if (event && event.srcElement.__data__.route) {
-          _paq.push([
-            'trackEvent',
-            event.srcElement.__data__.route.path,
-            'tap',
-            'in-app navigation'
-          ])
-        }
+        _paq.push([
+          'trackEvent',
+          this.page,
+          'tap',
+          'in-app navigation'
+        ])
       },
     });
   </script>
