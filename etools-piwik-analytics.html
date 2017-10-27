@@ -6,10 +6,10 @@
   _paq.push(["trackPageView"]);
   _paq.push(["enableLinkTracking"]);
   (function () {
-    let u="//unicef-etools-trial.innocraft.cloud/";
+    var u="//unicef-etools-trial.innocraft.cloud/";
     _paq.push(["setTrackerUrl", u + "piwik.php"]);
     _paq.push(["setSiteId", '1']);
-    let d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
+    var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
     g.type = "text/javascript"; g.defer = true; g.async = true; g.src = u + "piwik.js";
     s.parentNode.insertBefore(g, s);
   })();
@@ -46,7 +46,9 @@
               'trackEvent',
               this.page,
               'export',
-              this.user.groups.map(g => g.name)
+              this.user.groups.map(function(g) {
+                return g.name
+              })
             ])
             break
           // tracks filtered charts on dashboard/trips
@@ -55,7 +57,9 @@
               'trackEvent',
               this.page,
               'chart filtered',
-              this.user.groups.map(g => g.name)
+              this.user.groups.map(function(g) {
+                return g.name
+              })
             ])
             break
           // tracks drop-down filtering in PMP
@@ -64,7 +68,9 @@
               'trackEvent',
               this.page,
               'chart filtered',
-              this.user.groups.map(g => g.name)
+              this.user.groups.map(function(g) {
+                return g.name
+              })
             ])
         }
       },
@@ -76,7 +82,9 @@
             'trackEvent',
             this.page,
             'search bar used',
-            this.user.groups.map(g => g.name)
+            this.user.groups.map(function(g) {
+              return g.name
+            })
           ])
           this.set('queryEntered', true)
         }
@@ -94,7 +102,7 @@
 
       // handles tracking error messages
       // error: function (msg, url, lineNo, columnNo, error) {
-      //   let message = [
+      //   var message = [
       //     'Message: ' + msg,
       //     'URL: ' + url,
       //     'Line: ' + lineNo,
