@@ -1,14 +1,33 @@
 <link rel="import" href="../polymer/polymer.html">
 
 <script>
+  const SITE_ID = function() {
+    switch(window.location.host) {
+      case "etools.unicef.org":
+        return '1'
+        break;
+      case "etools-dev.unicef.org":
+        return '2'
+        break;
+      case "etools-staging.unicef.org":
+        return '3'
+        break;
+      case "localhost:8082":
+        return '4'
+        break;
+    }
+  }();
+
   // _paq array initialization and tracking script
   var _paq = _paq || [];
   _paq.push(["trackPageView"]);
+  _paq.push(['trackAllContentImpressions']);
   _paq.push(["enableLinkTracking"]);
+  _paq.push(["enableHeartBeatTimer"]);
   (function () {
     var u="//unicef-etools-trial.innocraft.cloud/";
     _paq.push(["setTrackerUrl", u + "piwik.php"]);
-    _paq.push(["setSiteId", '1']);
+    _paq.push(["setSiteId", SITE_ID]);
     var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
     g.type = "text/javascript"; g.defer = true; g.async = true; g.src = u + "piwik.js";
     s.parentNode.insertBefore(g, s);
@@ -28,6 +47,10 @@
           type: Boolean,
           value: false
         },
+        toast: {
+          type: String,
+          observer: 'toastFired',
+        }
       },
 
       // sets global event listeners, sets global error listener
@@ -37,6 +60,15 @@
         // window.onerror = this.error
       },
 
+      toastFired: function() {
+        _paq.push([
+          'trackEvent',
+          'toast notification',
+          this.page,
+          this.toast
+        ])
+      },
+
       // tracks exports and filtering
       trackEvent: function(e) {
         switch (e.detail.sourceEvent.currentTarget.innerText) {
@@ -44,8 +76,8 @@
           case 'EXPORT':
             _paq.push([
               'trackEvent',
-              this.page,
               'export',
+              this.page,
               this.user.groups.map(function(g) {
                 return g.name
               })
@@ -55,8 +87,8 @@
           case 'GET CHART':
             _paq.push([
               'trackEvent',
-              this.page,
               'chart filtered',
+              this.page,
               this.user.groups.map(function(g) {
                 return g.name
               })
@@ -66,8 +98,8 @@
           case 'ADD FILTER':
             _paq.push([
               'trackEvent',
-              this.page,
               'chart filtered',
+              this.page,
               this.user.groups.map(function(g) {
                 return g.name
               })
@@ -80,8 +112,8 @@
         if (event.path[0].value && event.path[7].id === 'query' && this.queryEntered === false) {
           _paq.push([
             'trackEvent',
-            this.page,
             'search bar used',
+            this.page,
             this.user.groups.map(function(g) {
               return g.name
             })
@@ -94,9 +126,9 @@
       pageView: function() {
         _paq.push([
           'trackEvent',
+          'in-app navigation'
           this.page,
           'tap',
-          'in-app navigation'
         ])
       },
 
