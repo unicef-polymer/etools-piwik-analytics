@@ -109,20 +109,6 @@
       },
 
       // checks if typing is in relevant input field, tracks search bar filtering
-      typing: function() {
-        if (event.path[0].value && event.path[7].id === 'query' && this.queryEntered === false) {
-          _paq.push([
-            'trackEvent',
-            'search bar used',
-            this.page,
-            this.user.groups.map(function(g) {
-              return g.name
-            })
-          ])
-          this.set('queryEntered', true)
-        }
-      },
-
       typing: function(event) {
         // events have different properties in IE vs Chrome; checks both
         var val = event.path ? !!event.path[0].value : !!event.target.value

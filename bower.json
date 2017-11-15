@@ -1,6 +1,6 @@
 {
   "name": "etools-piwik-analytics",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Piwik Analytics front end integration Polymer component for eTools",
   "main": "etools-piwik-analytics.html",
   "dependencies": {
