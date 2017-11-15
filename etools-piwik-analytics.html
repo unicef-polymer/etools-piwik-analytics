@@ -47,6 +47,10 @@
         toast: {
           type: String,
           observer: 'toastFired',
+        },
+        initialLoad: {
+          type: Boolean,
+          value: false
         }
       },
 
@@ -110,7 +114,7 @@
       typing: function(event) {
         // events have different properties in IE vs Chrome; checks both
         var val = event.path ? !!event.path[0].value : !!event.target.value
-        var id = event.path ? event.path[7].id === "query" : event.target.id === "input"
+        var id = event.path && event.path[7] ? event.path[7].id === "query" : event.target.id === "input"
         if (val && id && this.queryEntered === false) {
           _paq.push([
             'trackEvent',
@@ -126,15 +130,19 @@
 
       // tracks internal pageviews that aren't picked up with trackPageView
       pageView: function() {
-        _paq.push([
-          'trackEvent',
-          'in-app navigation',
-          this.page,
-          'tap',
-        ])
+        if (this.initialLoad) {
+          _paq.push([
+            'trackEvent',
+            'in-app navigation',
+            this.page,
+            'tap',
+          ])
+        };
+        this.initialLoad = true;
       },
 
-      // handles tracking error messages
+      // following is a function that is disabled pending review
+      // handles tracking javascript error messages
       // error: function (msg, url, lineNo, columnNo, error) {
       //   var message = [
       //     'Message: ' + msg,
