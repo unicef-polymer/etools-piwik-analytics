@@ -12,9 +12,8 @@
       case "etools.unicef.org":
         return '3'
         break;
-      case "localhost:8082":
+      default:
         return '4'
-        break;
     }
   }();
 
@@ -61,12 +60,14 @@
       },
 
       toastFired: function() {
-        _paq.push([
-          'trackEvent',
-          'toast notification',
-          this.page,
-          this.toast
-        ])
+        if (!!this.toast) {
+          _paq.push([
+            'trackEvent',
+            'toast notification',
+            this.page,
+            this.toast
+          ])
+        }
       },
 
       // tracks exports and filtering
@@ -108,8 +109,11 @@
       },
 
       // checks if typing is in relevant input field, tracks search bar filtering
-      typing: function() {
-        if (event.path[0].value && event.path[7].id === 'query' && this.queryEntered === false) {
+      typing: function(event) {
+        // events have different properties in IE vs Chrome; checks both
+        var val = event.path ? !!event.path[0].value : !!event.target.value
+        var id = event.path ? event.path[7].id === "query" : event.target.id === "input"
+        if (val && id && this.queryEntered === false) {
           _paq.push([
             'trackEvent',
             'search bar used',
