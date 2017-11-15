@@ -9,24 +9,7 @@ Import into app-shell.html file and initialize as the first child element, eg:
 ```
 ...
 </style>
-<piwik-analytics page="[[subroute.path]]" user="[[user]]"></piwik-analytics>
-```
-
-Then add toast capturing functionality by including a property, listener, and function:
-```
-properties: {
-  toast: {
-    type: String
-  }
-}
-
-listeners: {
-        'toast': 'toastFired'
-      },
-
-toastFired: function() {
-  this.set('toast', event.detail.text)
-},
+<piwik-analytics page="[[subroute.path]]" user="[[user]]" toast="[[currentToastMessage]]"></piwik-analytics>
 ```
 
 ## Install the Polymer-CLI
