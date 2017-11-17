@@ -12,6 +12,10 @@
       case "etools-staging.unicef.org":
         return '4'
         break;
+      case "etools-demo.unicef.org":
+        return '5'
+      default:
+        return '6'
     }
   }();
 
@@ -47,6 +51,10 @@
         toast: {
           type: String,
           observer: 'toastFired',
+        },
+        initialLoad: {
+          type: Number,
+          value: 0
         }
       },
 
@@ -110,7 +118,7 @@
       typing: function(event) {
         // events have different properties in IE vs Chrome; checks both
         var val = event.path ? !!event.path[0].value : !!event.target.value
-        var id = event.path ? event.path[7].id === "query" : event.target.id === "input"
+        var id = event.path && event.path[7] ? event.path[7].id === "query" : event.target.id === "input"
         if (val && id && this.queryEntered === false) {
           _paq.push([
             'trackEvent',
@@ -126,15 +134,20 @@
 
       // tracks internal pageviews that aren't picked up with trackPageView
       pageView: function() {
-        _paq.push([
-          'trackEvent',
-          'in-app navigation',
-          this.page,
-          'tap',
-        ])
+        // checks to make sure pageView is not double counting initial pageload
+        if (this.initialLoad > 1) {
+          _paq.push([
+            'trackEvent',
+            'in-app navigation',
+            this.page,
+            'tap',
+          ])
+        };
+        this.initialLoad += 1;
       },
 
-      // handles tracking error messages
+      // the following function is disabled pending review
+      // handles tracking javascript error messages
       // error: function (msg, url, lineNo, columnNo, error) {
       //   var message = [
       //     'Message: ' + msg,
