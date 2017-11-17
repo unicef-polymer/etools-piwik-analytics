@@ -53,8 +53,8 @@
           observer: 'toastFired',
         },
         initialLoad: {
-          type: Boolean,
-          value: false
+          type: Number,
+          value: 0
         }
       },
 
@@ -135,7 +135,7 @@
       // tracks internal pageviews that aren't picked up with trackPageView
       pageView: function() {
         // checks to make sure pageView is not double counting initial pageload
-        if (this.initialLoad) {
+        if (this.initialLoad > 1) {
           _paq.push([
             'trackEvent',
             'in-app navigation',
@@ -143,7 +143,7 @@
             'tap',
           ])
         };
-        this.initialLoad = true;
+        this.initialLoad += 1;
       },
 
       // the following function is disabled pending review
