@@ -12,6 +12,10 @@
       case "etools-staging.unicef.org":
         return '4'
         break;
+      case "etools-demo.unicef.org":
+        return '5'
+      default:
+        return '6'
     }
   }();
 
@@ -130,6 +134,7 @@
 
       // tracks internal pageviews that aren't picked up with trackPageView
       pageView: function() {
+        // checks to make sure pageView is not double counting initial pageload
         if (this.initialLoad) {
           _paq.push([
             'trackEvent',
@@ -141,7 +146,7 @@
         this.initialLoad = true;
       },
 
-      // following is a function that is disabled pending review
+      // the following function is disabled pending review
       // handles tracking javascript error messages
       // error: function (msg, url, lineNo, columnNo, error) {
       //   var message = [
