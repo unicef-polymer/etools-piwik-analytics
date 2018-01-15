@@ -1,41 +1,42 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel='import' href='../polymer/polymer.html'>
 
 <script>
   const SITE_ID = function() {
     switch(window.location.host) {
-      case "etools.unicef.org":
-        return '1'
+      case 'etools.unicef.org':
+        return '1';
         break;
-      case "etools-dev.unicef.org":
-        return '2'
+      case 'etools-dev.unicef.org':
+        return '2';
         break;
-      case "etools-staging.unicef.org":
-        return '4'
+      case 'etools-staging.unicef.org':
+        return '4';
         break;
-      case "etools-demo.unicef.org":
-        return '5'
+      case 'etools-demo.unicef.org':
+        return '5';
+        break;
       default:
-        return '6'
+        return '6';
     }
   }();
 
   // _paq array initialization and tracking script
   var _paq = _paq || [];
-  _paq.push(["trackPageView"]);
+  _paq.push(['trackPageView']);
   _paq.push(['trackAllContentImpressions']);
-  _paq.push(["enableLinkTracking"]);
-  _paq.push(["enableHeartBeatTimer"]);
-  (function () {
-    var u="//unisitetracker.azurewebsites.net/";
-    _paq.push(["setTrackerUrl", u + "piwik.php"]);
-    _paq.push(["setSiteId", SITE_ID]);
-    var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
-    g.type = "text/javascript"; g.defer = true; g.async = true; g.src = u + "piwik.js";
+  _paq.push(['enableLinkTracking']);
+  _paq.push(['enableHeartBeatTimer']);
+  (function() {
+    var u='//unisitetracker.azurewebsites.net/';
+    _paq.push(['setTrackerUrl', u + 'piwik.php']);
+    _paq.push(['setSiteId', SITE_ID]);
+    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+    g.type = 'text/javascript'; g.defer = true; g.async = true; g.src = u + 'piwik.js';
     s.parentNode.insertBefore(g, s);
   })();
 </script>
 
-<dom-module id="etools-piwik-analytics">
+<dom-module id='etools-piwik-analytics'>
   <script>
     Polymer({
       is: 'etools-piwik-analytics',
@@ -72,7 +73,7 @@
             'toast notification',
             this.page,
             this.toast
-          ])
+          ]);
         }
       },
 
@@ -86,10 +87,10 @@
               'export',
               this.page,
               this.user.groups.map(function(g) {
-                return g.name
+                return g.name;
               })
-            ])
-            break
+            ]);
+            break;
           // tracks filtered charts on dashboard/trips
           case 'GET CHART':
             _paq.push([
@@ -97,10 +98,10 @@
               'chart filtered',
               this.page,
               this.user.groups.map(function(g) {
-                return g.name
+                return g.name;
               })
-            ])
-            break
+            ]);
+            break;
           // tracks drop-down filtering in PMP
           case 'ADD FILTER':
             _paq.push([
@@ -108,27 +109,27 @@
               'chart filtered',
               this.page,
               this.user.groups.map(function(g) {
-                return g.name
+                return g.name;
               })
-            ])
+            ]);
         }
       },
 
       // checks if typing is in relevant input field, tracks search bar filtering
       typing: function(event) {
         // events have different properties in IE vs Chrome; checks both
-        var val = event.path ? !!event.path[0].value : !!event.target.value
-        var id = event.path && event.path[7] ? event.path[7].id === "query" : event.target.id === "input"
+        var val = event.path ? !!event.path[0].value : !!event.target.value;
+        var id = event.path && event.path[7] ? event.path[7].id === 'query' : event.target.id === 'input';
         if (val && id && this.queryEntered === false) {
           _paq.push([
             'trackEvent',
             'search bar used',
             this.page,
             this.user.groups.map(function(g) {
-              return g.name
+              return g.name;
             })
-          ])
-          this.set('queryEntered', true)
+          ]);
+          this.set('queryEntered', true);
         }
       },
 
@@ -141,23 +142,10 @@
             'in-app navigation',
             this.page,
             'tap',
-          ])
-        };
+          ]);
+        }
         this.initialLoad += 1;
       },
-
-      // the following function is disabled pending review
-      // handles tracking javascript error messages
-      // error: function (msg, url, lineNo, columnNo, error) {
-      //   var message = [
-      //     'Message: ' + msg,
-      //     'URL: ' + url,
-      //     'Line: ' + lineNo,
-      //     'Column: ' + columnNo,
-      //     'Error object: ' + JSON.stringify(error)
-      //   ].join(' - ');
-      //   _paq.push(['trackEvent', 'error', 'javascript error', message])
-      // },
     });
   </script>
 </dom-module>
