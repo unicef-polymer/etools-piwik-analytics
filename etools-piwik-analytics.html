@@ -1,4 +1,6 @@
 <link rel='import' href='../polymer/polymer.html'>
+<link rel='import' href='bower_components/polymer/polymer-element.html'>
+<link rel='import' href='bower_components/polymer/lib/utils/render-status.html'>
 
 <script>
   const SITE_ID = function() {
@@ -38,9 +40,13 @@
 
 <dom-module id='etools-piwik-analytics'>
   <script>
-    Polymer({
-      is: 'etools-piwik-analytics',
-      properties: {
+    class EtoolsPiwikAnalytics extends Polymer.Element {
+      static get is() {
+        return 'etools-piwik-analytics'
+      }
+
+      static get properties() {
+        return {
         page: {
           type: String,
           observer: 'pageView'
@@ -51,20 +57,22 @@
         },
         toast: {
           type: String,
-          observer: 'toastFired',
+            observer: 'toastFired'
         },
         initialLoad: {
           type: Number,
           value: 0
-        }
-      },
+          };
+        };
+      };
 
       // sets global event listeners, sets global error listener
       attached: function() {
+        Polymer.RenderStatus.beforeNextRender(this, funciton() {
         document.addEventListener('tap', this.trackEvent.bind(this));
         document.addEventListener('keyup', this.typing.bind(this));
-        // window.onerror = this.error
-      },
+        })
+      }
 
       toastFired: function() {
         if (!!this.toast) {
@@ -75,7 +83,7 @@
             this.toast
           ]);
         }
-      },
+      }
 
       // tracks exports and filtering
       trackEvent: function(e) {
@@ -113,7 +121,7 @@
               })
             ]);
         }
-      },
+      }
 
       // checks if typing is in relevant input field, tracks search bar filtering
       typing: function(event) {
@@ -131,7 +139,7 @@
           ]);
           this.set('queryEntered', true);
         }
-      },
+      }
 
       // tracks internal pageviews that aren't picked up with trackPageView
       pageView: function() {
@@ -145,7 +153,9 @@
           ]);
         }
         this.initialLoad += 1;
-      },
-    });
+      }
+    };
+
+    customElements.define(EtoolsPiwikAnalytics.is, EtoolsPiwikAnalytics)
   </script>
 </dom-module>
