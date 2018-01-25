@@ -23,16 +23,16 @@
   }();
 
   // _paq array initialization and tracking script
-  var _paq = _paq || [];
+  let _paq = _paq || [];
   _paq.push(['trackPageView']);
   _paq.push(['trackAllContentImpressions']);
   _paq.push(['enableLinkTracking']);
   _paq.push(['enableHeartBeatTimer']);
   (function() {
-    var u='//unisitetracker.azurewebsites.net/';
+    let u='//unisitetracker.azurewebsites.net/';
     _paq.push(['setTrackerUrl', u + 'piwik.php']);
     _paq.push(['setSiteId', SITE_ID]);
-    var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+    let d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
     g.type = 'text/javascript'; g.defer = true; g.async = true; g.src = u + 'piwik.js';
     s.parentNode.insertBefore(g, s);
   })();
@@ -42,39 +42,42 @@
   <script>
     class EtoolsPiwikAnalytics extends Polymer.Element {
       static get is() {
-        return 'etools-piwik-analytics'
+        return 'etools-piwik-analytics';
       }
 
       static get properties() {
         return {
-        page: {
-          type: String,
-          observer: 'pageView'
-        },
-        queryEntered: {
-          type: Boolean,
-          value: false
-        },
-        toast: {
-          type: String,
+          page: {
+            type: String,
+            observer: 'pageView'
+          },
+          queryEntered: {
+            type: Boolean,
+            value: false
+          },
+          toast: {
+            type: String,
             observer: 'toastFired'
-        },
-        initialLoad: {
-          type: Number,
-          value: 0
-          };
+          },
+          initialLoad: {
+            type: Number,
+            value: 0
+          }
         };
-      };
-
-      // sets global event listeners, sets global error listener
-      attached: function() {
-        Polymer.RenderStatus.beforeNextRender(this, funciton() {
-        document.addEventListener('tap', this.trackEvent.bind(this));
-        document.addEventListener('keyup', this.typing.bind(this));
-        })
       }
 
-      toastFired: function() {
+      // sets global event listeners, sets global error listener
+      connectedCallback() {
+        super.connectedCallback();
+        () => {
+          Polymer.RenderStatus.beforeNextRender(this, () => {
+            document.addEventListener('tap', this.trackEvent.bind(this));
+            document.addEventListener('keyup', this.typing.bind(this));
+          });
+        };
+      }
+
+      toastFired() {
         if (!!this.toast) {
           _paq.push([
             'trackEvent',
@@ -86,7 +89,7 @@
       }
 
       // tracks exports and filtering
-      trackEvent: function(e) {
+      trackEvent(e) {
         switch (e.detail.sourceEvent.currentTarget.innerText) {
         // tracks document exports
           case 'EXPORT':
@@ -124,10 +127,10 @@
       }
 
       // checks if typing is in relevant input field, tracks search bar filtering
-      typing: function(event) {
+      typing(event) {
         // events have different properties in IE vs Chrome; checks both
-        var val = event.path ? !!event.path[0].value : !!event.target.value;
-        var id = event.path && event.path[7] ? event.path[7].id === 'query' : event.target.id === 'input';
+        let val = event.path ? !!event.path[0].value : !!event.target.value;
+        let id = event.path && event.path[7] ? event.path[7].id === 'query' : event.target.id === 'input';
         if (val && id && this.queryEntered === false) {
           _paq.push([
             'trackEvent',
@@ -142,7 +145,7 @@
       }
 
       // tracks internal pageviews that aren't picked up with trackPageView
-      pageView: function() {
+      pageView() {
         // checks to make sure pageView is not double counting initial pageload
         if (this.initialLoad > 1) {
           _paq.push([
@@ -154,8 +157,8 @@
         }
         this.initialLoad += 1;
       }
-    };
+    }
 
-    customElements.define(EtoolsPiwikAnalytics.is, EtoolsPiwikAnalytics)
+    customElements.define(EtoolsPiwikAnalytics.is, EtoolsPiwikAnalytics);
   </script>
 </dom-module>
