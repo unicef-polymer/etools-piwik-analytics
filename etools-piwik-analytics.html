@@ -1,4 +1,3 @@
-<link rel='import' href='../polymer/polymer.html'>
 <link rel='import' href='bower_components/polymer/polymer-element.html'>
 <link rel='import' href='bower_components/polymer/lib/utils/render-status.html'>
 
@@ -41,9 +40,7 @@
 <dom-module id='etools-piwik-analytics'>
   <script>
     class EtoolsPiwikAnalytics extends Polymer.Element {
-      static get is() {
-        return 'etools-piwik-analytics';
-      }
+      static get is() { return 'etools-piwik-analytics' }
 
       static get properties() {
         return {
@@ -66,15 +63,13 @@
         };
       }
 
-      // sets global event listeners, sets global error listener
       connectedCallback() {
         super.connectedCallback();
-        () => {
-          Polymer.RenderStatus.beforeNextRender(this, () => {
-            document.addEventListener('tap', this.trackEvent.bind(this));
-            document.addEventListener('keyup', this.typing.bind(this));
-          });
-        };
+        // sets global event listeners, sets global error listener
+        Polymer.RenderStatus.beforeNextRender(this, () => {
+          document.addEventListener('tap', this.trackEvent.bind(this));
+          document.addEventListener('keyup', this.typing.bind(this));
+        });
       }
 
       toastFired() {
