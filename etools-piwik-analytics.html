@@ -141,16 +141,18 @@
 
       // tracks internal pageviews that aren't picked up with trackPageView
       pageView() {
-        // checks to make sure pageView is not double counting initial pageload
-        if (this.initialLoad > 1) {
-          _paq.push([
-            'trackEvent',
-            'in-app navigation',
-            this.page,
-            'tap',
-          ]);
+        if (this.page) {
+          // checks to make sure pageView is not double counting initial pageload
+          if (this.initialLoad > 1) {
+            _paq.push([
+              'trackEvent',
+              'in-app navigation',
+              this.page,
+              'tap',
+            ]);
+          }
+          this.initialLoad += 1;
         }
-        this.initialLoad += 1;
       }
     }
 
