@@ -22,7 +22,8 @@
   }();
 
   // _paq array initialization and tracking script
-  let _paq = _paq || [];
+  let _paq
+  _paq = _paq || [];
   _paq.push(['trackPageView']);
   _paq.push(['trackAllContentImpressions']);
   _paq.push(['enableLinkTracking']);
@@ -85,7 +86,7 @@
 
       // tracks exports and filtering
       trackEvent(e) {
-        switch (e.detail.sourceEvent.currentTarget.innerText) {
+        switch (e.detail.sourceEvent.target.innerText) {
         // tracks document exports
           case 'EXPORT':
             _paq.push([
