@@ -66,7 +66,6 @@
       attached: function() {
         document.addEventListener('tap', this.trackEvent.bind(this));
         document.addEventListener('keyup', this.typing.bind(this));
-        // window.onerror = this.error
       },
 
       initPiwik: function() {
@@ -155,19 +154,6 @@
           this.initialLoad += 1;
         }
       },
-
-      // the following function is disabled pending review
-      // handles tracking javascript error messages
-      // error: function (msg, url, lineNo, columnNo, error) {
-      //   var message = [
-      //     'Message: ' + msg,
-      //     'URL: ' + url,
-      //     'Line: ' + lineNo,
-      //     'Column: ' + columnNo,
-      //     'Error object: ' + JSON.stringify(error)
-      //   ].join(' - ');
-      //   _paq.push(['trackEvent', 'error', 'javascript error', message])
-      // },
     });
   </script>
 </dom-module>
