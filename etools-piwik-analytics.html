@@ -55,6 +55,10 @@
         initialLoad: {
           type: Number,
           value: 0
+        },
+        user: {
+          type: Object,
+          observer: 'initPiwik',
         }
       },
 
@@ -64,6 +68,10 @@
         document.addEventListener('keyup', this.typing.bind(this));
         // window.onerror = this.error
       },
+
+      initPiwik: function() {
+        _paq.push(['setUserId', this.user.email])
+      }
 
       toastFired: function() {
         if (!!this.toast) {
