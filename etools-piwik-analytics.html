@@ -68,6 +68,7 @@
         document.addEventListener('keyup', this.typing.bind(this));
       },
 
+      // sets user tracking info once it is passed in
       initPiwik: function() {
         _paq.push(['setUserId', this.user.email])
       },
