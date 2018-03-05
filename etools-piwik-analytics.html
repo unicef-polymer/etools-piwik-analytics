@@ -60,6 +60,10 @@
           initialLoad: {
             type: Number,
             value: 0
+          },
+          user: {
+            type: Object,
+            observer: 'initPiwik',
           }
         };
       }
@@ -71,6 +75,10 @@
           document.addEventListener('tap', this.trackEvent.bind(this));
           document.addEventListener('keyup', this.typing.bind(this));
         });
+      }
+
+      initPiwik() {
+        _paq.push(['setUserId', this.user.email])
       }
 
       toastFired() {
