@@ -86,39 +86,53 @@
 
       // tracks exports and filtering
       trackEvent: function(e) {
-        switch (e.detail.sourceEvent.currentTarget.innerText) {
-        // tracks document exports
-          case 'EXPORT':
-            _paq.push([
-              'trackEvent',
-              'export',
-              this.page,
-              this.user.groups.map(function(g) {
-                return g.name
-              })
-            ])
-            break
-          // tracks filtered charts on dashboard/trips
-          case 'GET CHART':
-            _paq.push([
-              'trackEvent',
-              'chart filtered',
-              this.page,
-              this.user.groups.map(function(g) {
-                return g.name
-              })
-            ])
-            break
-          // tracks drop-down filtering in PMP
-          case 'ADD FILTER':
-            _paq.push([
-              'trackEvent',
-              'chart filtered',
-              this.page,
-              this.user.groups.map(function(g) {
-                return g.name
-              })
-            ])
+        let buttonText = e.detail.sourceEvent.currentTarget ?
+                         e.detail.sourceEvent.currentTarget.innerText :
+                         e.detail.sourceEvent.target.innerText
+        if (!!buttonText) {
+          switch (buttonText) {
+          // tracks document exports
+            case 'EXPORT':
+              _paq.push([
+                'trackEvent',
+                'export',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name
+                })
+              ])
+              break
+            // tracks filtered charts on dashboard/trips
+            case 'GET CHART':
+              _paq.push([
+                'trackEvent',
+                'chart filtered',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name
+                })
+              ])
+              break
+            // tracks drop-down filtering in PMP
+            case 'ADD FILTER':
+              _paq.push([
+                'trackEvent',
+                'chart filtered',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name
+                })
+              ])
+              break
+
+            default:
+              _paq.push([
+                'trackEvent',
+                'in-app navigation',
+                document.location.pathname,
+                'tap',
+              ])
+          }
         }
       },
 
