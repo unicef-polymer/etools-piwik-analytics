@@ -1,5 +1,5 @@
-<link rel='import' href='../bower_components/polymer/polymer-element.html'>
-<link rel='import' href='../bower_components/polymer/lib/utils/render-status.html'>
+<link rel='import' href='../polymer/polymer-element.html'>
+<link rel='import' href='../polymer/lib/utils/render-status.html'>
 
 <script>
   const SITE_ID = function() {
@@ -22,7 +22,7 @@
   }();
 
   // _paq array initialization and tracking script
-  let _paq
+  let _paq;
   _paq = _paq || [];
   _paq.push(['trackPageView']);
   _paq.push(['trackAllContentImpressions']);
@@ -94,39 +94,57 @@
 
       // tracks exports and filtering
       trackEvent(e) {
-        switch (e.detail.sourceEvent.target.innerText) {
-        // tracks document exports
-          case 'EXPORT':
-            _paq.push([
-              'trackEvent',
-              'export',
-              this.page,
-              this.user.groups.map(function(g) {
-                return g.name;
-              })
-            ]);
-            break;
-          // tracks filtered charts on dashboard/trips
-          case 'GET CHART':
-            _paq.push([
-              'trackEvent',
-              'chart filtered',
-              this.page,
-              this.user.groups.map(function(g) {
-                return g.name;
-              })
-            ]);
-            break;
-          // tracks drop-down filtering in PMP
-          case 'ADD FILTER':
-            _paq.push([
-              'trackEvent',
-              'chart filtered',
-              this.page,
-              this.user.groups.map(function(g) {
-                return g.name;
-              })
-            ]);
+        let buttonText
+        if (e.detail.sourceEvent.currentTarget) {
+          buttonText = e.detail.sourceEvent.currentTarget.innerText
+        } else if (e.detail.sourceEvent.target.innerText) {
+          buttonText = e.detail.sourceEvent.target.innerText
+        }
+
+        if (!!buttonText) {
+          switch (buttonText) {
+          // tracks document exports
+            case 'EXPORT':
+              _paq.push([
+                'trackEvent',
+                'export',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name;
+                })
+              ]);
+              break;
+            // tracks filtered charts on dashboard/trips
+            case 'GET CHART':
+              _paq.push([
+                'trackEvent',
+                'chart filtered',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name;
+                })
+              ]);
+              break;
+            // tracks drop-down filtering in PMP
+            case 'ADD FILTER':
+              _paq.push([
+                'trackEvent',
+                'chart filtered',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name;
+                })
+              ]);
+              break;
+
+            default:
+                _paq.push([
+                  'trackEvent',
+                  'in-app navigation',
+                  document.location.pathname,
+                  'tap',
+                ])
+          }
         }
       }
 
