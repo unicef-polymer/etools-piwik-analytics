@@ -9,7 +9,7 @@ Import into app-shell.html file and initialize as the first child element, eg:
 ```
 ...
 </style>
-<piwik-analytics page="[[subroute.path]]" user="[[user]]" toast="[[currentToastMessage]]"></piwik-analytics>
+<piwik-analytics page="[[subroute.prefix]]" user="[[user]]" toast="[[currentToastMessage]]"></piwik-analytics>
 ```
 
 ## Install the Polymer-CLI

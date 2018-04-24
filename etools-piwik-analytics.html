@@ -1,96 +1,106 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel='import' href='../polymer/polymer-element.html'>
+<link rel='import' href='../polymer/lib/utils/render-status.html'>
 
 <script>
   const SITE_ID = function() {
     switch(window.location.host) {
-      case "etools.unicef.org":
-        return '1'
-        break;
-      case "etools-dev.unicef.org":
-        return '2'
-        break;
-      case "etools-staging.unicef.org":
-        return '4'
-        break;
-      case "etools-demo.unicef.org":
-        return '5'
+      case 'etools.unicef.org':
+        return '1';
+      case 'etools-dev.unicef.org':
+        return '2';
+      case 'etools-staging.unicef.org':
+        return '4';
+      case 'etools-demo.unicef.org':
+        return '5';
       default:
-        return '6'
+        return '6';
     }
   }();
 
   // _paq array initialization and tracking script
-  var _paq = _paq || [];
-  _paq.push(["trackPageView"]);
+  let _paq;
+  _paq = _paq || [];
+  _paq.push(['trackPageView']);
   _paq.push(['trackAllContentImpressions']);
-  _paq.push(["enableLinkTracking"]);
-  _paq.push(["enableHeartBeatTimer"]);
-  (function () {
-    var u="//unisitetracker.azurewebsites.net/";
-    _paq.push(["setTrackerUrl", u + "piwik.php"]);
-    _paq.push(["setSiteId", SITE_ID]);
-    var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
-    g.type = "text/javascript"; g.defer = true; g.async = true; g.src = u + "piwik.js";
+  _paq.push(['enableLinkTracking']);
+  _paq.push(['enableHeartBeatTimer']);
+  (function() {
+    let u='//unisitetracker.azurewebsites.net/';
+    _paq.push(['setTrackerUrl', u + 'piwik.php']);
+    _paq.push(['setSiteId', SITE_ID]);
+    // eslint-disable-next-line
+    let d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+    g.type = 'text/javascript'; g.defer = true; g.async = true; g.src = u + 'piwik.js';
     s.parentNode.insertBefore(g, s);
   })();
 </script>
 
-<dom-module id="etools-piwik-analytics">
+<dom-module id='etools-piwik-analytics'>
   <script>
-    Polymer({
-      is: 'etools-piwik-analytics',
-      properties: {
-        page: {
-          type: String,
-          observer: 'pageView'
-        },
-        queryEntered: {
-          type: Boolean,
-          value: false
-        },
-        toast: {
-          type: String,
-          observer: 'toastFired'
-        },
-        initialLoad: {
-          type: Number,
-          value: 0
-        },
-        user: {
-          type: Object,
-          observer: 'initPiwik',
-        }
-      },
+    class EtoolsPiwikAnalytics extends Polymer.Element {
+      static get is() {
+        return 'etools-piwik-analytics';
+      }
 
-      // sets global event listeners, sets global error listener
-      attached: function() {
-        document.addEventListener('tap', this.trackEvent.bind(this));
-        document.addEventListener('keyup', this.typing.bind(this));
-      },
+      static get properties() {
+        return {
+          page: {
+            type: String,
+            observer: 'pageView'
+          },
+          queryEntered: {
+            type: Boolean,
+            value: false
+          },
+          toast: {
+            type: String,
+            observer: 'toastFired'
+          },
+          initialLoad: {
+            type: Number,
+            value: 0
+          },
+          user: {
+            type: Object,
+            observer: 'initPiwik'
+          }
+        };
+      }
 
-      // sets user tracking info once it is passed in
-      initPiwik: function() {
-        _paq.push(['setUserId', this.user.email])
-      },
+      connectedCallback() {
+        super.connectedCallback();
+        // sets global event listeners, sets global error listener
+        Polymer.RenderStatus.beforeNextRender(this, () => {
+          document.addEventListener('tap', this.trackEvent.bind(this));
+          document.addEventListener('keyup', this.typing.bind(this));
+        });
+      }
 
-      toastFired: function() {
-        if (!!this.toast) {
+      initPiwik() {
+        _paq.push(['setUserId', this.user.username]);
+      }
+
+      toastFired() {
+        if (!!this.toast) { // eslint-disable-line
           _paq.push([
             'trackEvent',
             'toast notification',
             this.page,
             this.toast
-          ])
+          ]);
         }
-      },
+      }
 
       // tracks exports and filtering
-      trackEvent: function(e) {
-        let buttonText = e.detail.sourceEvent.currentTarget ?
-                         e.detail.sourceEvent.currentTarget.innerText :
-                         e.detail.sourceEvent.target.innerText ?
-                         e.detail.sourceEvent.target.innerText : null
-        if (!!buttonText) {
+      trackEvent(e) {
+        let buttonText;
+        if (e.detail.sourceEvent.currentTarget) {
+          buttonText = e.detail.sourceEvent.currentTarget.innerText;
+        } else if (e.detail.sourceEvent.target.innerText) {
+          buttonText = e.detail.sourceEvent.target.innerText;
+        }
+
+        if (!!buttonText) { // eslint-disable-line
           switch (buttonText) {
           // tracks document exports
             case 'EXPORT':
@@ -99,10 +109,10 @@
                 'export',
                 this.page,
                 this.user.groups.map(function(g) {
-                  return g.name
+                  return g.name;
                 })
-              ])
-              break
+              ]);
+              break;
             // tracks filtered charts on dashboard/trips
             case 'GET CHART':
               _paq.push([
@@ -110,10 +120,10 @@
                 'chart filtered',
                 this.page,
                 this.user.groups.map(function(g) {
-                  return g.name
+                  return g.name;
                 })
-              ])
-              break
+              ]);
+              break;
             // tracks drop-down filtering in PMP
             case 'ADD FILTER':
               _paq.push([
@@ -121,42 +131,42 @@
                 'chart filtered',
                 this.page,
                 this.user.groups.map(function(g) {
-                  return g.name
+                  return g.name;
                 })
-              ])
-              break
+              ]);
+              break;
 
             default:
-              _paq.push([
-                'trackEvent',
-                'in-app navigation',
-                document.location.pathname,
-                'tap',
-              ])
+                _paq.push([
+                  'trackEvent',
+                  'in-app navigation',
+                  document.location.pathname,
+                  'tap'
+                ]);
           }
         }
-      },
+      }
 
       // checks if typing is in relevant input field, tracks search bar filtering
-      typing: function(event) {
+      typing(event) {
         // events have different properties in IE vs Chrome; checks both
-        var val = event.path ? !!event.path[0].value : !!event.target.value
-        var id = event.path && event.path[7] ? event.path[7].id === "query" : event.target.id === "input"
+        let val = event.path ? !!event.path[0].value : !!event.target.value;
+        let id = event.path && event.path[7] ? event.path[7].id === 'query' : event.target.id === 'input';
         if (val && id && this.queryEntered === false) {
           _paq.push([
             'trackEvent',
             'search bar used',
             this.page,
             this.user.groups.map(function(g) {
-              return g.name
+              return g.name;
             })
-          ])
-          this.set('queryEntered', true)
+          ]);
+          this.set('queryEntered', true);
         }
-      },
+      }
 
       // tracks internal pageviews that aren't picked up with trackPageView
-      pageView: function() {
+      pageView() {
         if (this.page) {
           // checks to make sure pageView is not double counting initial pageload
           if (this.initialLoad > 1) {
@@ -164,12 +174,14 @@
               'trackEvent',
               'in-app navigation',
               this.page,
-              'tap',
-            ])
-          };
+              'tap'
+            ]);
+          }
           this.initialLoad += 1;
         }
-      },
-    });
+      }
+    }
+
+    customElements.define(EtoolsPiwikAnalytics.is, EtoolsPiwikAnalytics);
   </script>
 </dom-module>
