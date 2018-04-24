@@ -6,16 +6,12 @@
     switch(window.location.host) {
       case 'etools.unicef.org':
         return '1';
-        break;
       case 'etools-dev.unicef.org':
         return '2';
-        break;
       case 'etools-staging.unicef.org':
         return '4';
-        break;
       case 'etools-demo.unicef.org':
         return '5';
-        break;
       default:
         return '6';
     }
@@ -32,6 +28,7 @@
     let u='//unisitetracker.azurewebsites.net/';
     _paq.push(['setTrackerUrl', u + 'piwik.php']);
     _paq.push(['setSiteId', SITE_ID]);
+    // eslint-disable-next-line
     let d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
     g.type = 'text/javascript'; g.defer = true; g.async = true; g.src = u + 'piwik.js';
     s.parentNode.insertBefore(g, s);
@@ -41,7 +38,9 @@
 <dom-module id='etools-piwik-analytics'>
   <script>
     class EtoolsPiwikAnalytics extends Polymer.Element {
-      static get is() { return 'etools-piwik-analytics' }
+      static get is() {
+        return 'etools-piwik-analytics';
+      }
 
       static get properties() {
         return {
@@ -63,7 +62,7 @@
           },
           user: {
             type: Object,
-            observer: 'initPiwik',
+            observer: 'initPiwik'
           }
         };
       }
@@ -78,11 +77,11 @@
       }
 
       initPiwik() {
-        _paq.push(['setUserId', this.user.username])
+        _paq.push(['setUserId', this.user.username]);
       }
 
       toastFired() {
-        if (!!this.toast) {
+        if (!!this.toast) { // eslint-disable-line
           _paq.push([
             'trackEvent',
             'toast notification',
@@ -94,14 +93,14 @@
 
       // tracks exports and filtering
       trackEvent(e) {
-        let buttonText
+        let buttonText;
         if (e.detail.sourceEvent.currentTarget) {
-          buttonText = e.detail.sourceEvent.currentTarget.innerText
+          buttonText = e.detail.sourceEvent.currentTarget.innerText;
         } else if (e.detail.sourceEvent.target.innerText) {
-          buttonText = e.detail.sourceEvent.target.innerText
+          buttonText = e.detail.sourceEvent.target.innerText;
         }
 
-        if (!!buttonText) {
+        if (!!buttonText) { // eslint-disable-line
           switch (buttonText) {
           // tracks document exports
             case 'EXPORT':
@@ -142,8 +141,8 @@
                   'trackEvent',
                   'in-app navigation',
                   document.location.pathname,
-                  'tap',
-                ])
+                  'tap'
+                ]);
           }
         }
       }
@@ -175,7 +174,7 @@
               'trackEvent',
               'in-app navigation',
               this.page,
-              'tap',
+              'tap'
             ]);
           }
           this.initialLoad += 1;
