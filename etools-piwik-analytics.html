@@ -68,12 +68,6 @@
           user: {
             type: Object,
             observer: 'initPiwik'
-          },
-          _paq: {
-            type: Array,
-            value: function() {
-              return _paq;
-            }
           }
         };
       }
@@ -81,19 +75,17 @@
       connectedCallback() {
         super.connectedCallback();
         // sets global event listeners, sets global error listener
-        Polymer.RenderStatus.beforeNextRender(this, () => {
-          document.addEventListener('tap', this.trackEvent.bind(this));
-          document.addEventListener('keyup', this.typing.bind(this));
-        });
+        document.addEventListener('tap', this.trackEvent.bind(this));
+        document.addEventListener('keyup', this.typing.bind(this));
       }
 
       initPiwik() {
-        this._paq.push(['setUserId', this.user.username]);
+        _paq.push(['setUserId', this.user.username]);
       }
 
       toastFired() {
         if (!!this.toast) { // eslint-disable-line
-          this._paq.push([
+          _paq.push([
             'trackEvent',
             'toast notification',
             this.page,
@@ -115,7 +107,7 @@
           switch (buttonText) {
           // tracks document exports
             case 'EXPORT':
-              this._paq.push([
+              _paq.push([
                 'trackEvent',
                 'export',
                 this.page,
@@ -126,7 +118,7 @@
               break;
             // tracks filtered charts on dashboard/trips
             case 'GET CHART':
-              this._paq.push([
+              _paq.push([
                 'trackEvent',
                 'chart filtered',
                 this.page,
@@ -137,7 +129,7 @@
               break;
             // tracks drop-down filtering in PMP
             case 'ADD FILTER':
-              this._paq.push([
+              _paq.push([
                 'trackEvent',
                 'chart filtered',
                 this.page,
@@ -148,7 +140,7 @@
               break;
 
             default:
-                this._paq.push([
+                _paq.push([
                   'trackEvent',
                   'in-app navigation',
                   document.location.pathname,
@@ -164,7 +156,7 @@
         let val = event.path ? !!event.path[0].value : !!event.target.value;
         let id = event.path && event.path[7] ? event.path[7].id === 'query' : event.target.id === 'input';
         if (val && id && this.queryEntered === false) {
-          this._paq.push([
+          _paq.push([
             'trackEvent',
             'search bar used',
             this.page,
@@ -181,7 +173,7 @@
         if (this.page) {
           // checks to make sure pageView is not double counting initial pageload
           if (this.initialLoad > 1) {
-            this._paq.push([
+            _paq.push([
               'trackEvent',
               'in-app navigation',
               this.page,
