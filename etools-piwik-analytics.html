@@ -18,13 +18,12 @@
   }();
 
   // _paq array initialization and tracking script
-  let _paq;
-  _paq = _paq || [];
+  var _paq = _paq || [];
   _paq.push(['trackPageView']);
   _paq.push(['trackAllContentImpressions']);
   _paq.push(['enableLinkTracking']);
   _paq.push(['enableHeartBeatTimer']);
-  (function() {
+  (function(_paq) {
     let u='//unisitetracker.azurewebsites.net/';
     _paq.push(['setTrackerUrl', u + 'piwik.php']);
     _paq.push(['setSiteId', SITE_ID]);
@@ -32,7 +31,7 @@
     let d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
     g.type = 'text/javascript'; g.defer = true; g.async = true; g.src = u + 'piwik.js';
     s.parentNode.insertBefore(g, s);
-  })();
+  })(_paq);
 </script>
 
 <dom-module id='etools-piwik-analytics'>
@@ -69,6 +68,12 @@
           user: {
             type: Object,
             observer: 'initPiwik'
+          },
+          _paq: {
+            type: Array,
+            value: function() {
+              return _paq;
+            }
           }
         };
       }
@@ -83,12 +88,12 @@
       }
 
       initPiwik() {
-        _paq.push(['setUserId', this.user.username]);
+        this._paq.push(['setUserId', this.user.username]);
       }
 
       toastFired() {
         if (!!this.toast) { // eslint-disable-line
-          _paq.push([
+          this._paq.push([
             'trackEvent',
             'toast notification',
             this.page,
@@ -110,7 +115,7 @@
           switch (buttonText) {
           // tracks document exports
             case 'EXPORT':
-              _paq.push([
+              this._paq.push([
                 'trackEvent',
                 'export',
                 this.page,
@@ -121,7 +126,7 @@
               break;
             // tracks filtered charts on dashboard/trips
             case 'GET CHART':
-              _paq.push([
+              this._paq.push([
                 'trackEvent',
                 'chart filtered',
                 this.page,
@@ -132,7 +137,7 @@
               break;
             // tracks drop-down filtering in PMP
             case 'ADD FILTER':
-              _paq.push([
+              this._paq.push([
                 'trackEvent',
                 'chart filtered',
                 this.page,
@@ -143,7 +148,7 @@
               break;
 
             default:
-                _paq.push([
+                this._paq.push([
                   'trackEvent',
                   'in-app navigation',
                   document.location.pathname,
@@ -159,7 +164,7 @@
         let val = event.path ? !!event.path[0].value : !!event.target.value;
         let id = event.path && event.path[7] ? event.path[7].id === 'query' : event.target.id === 'input';
         if (val && id && this.queryEntered === false) {
-          _paq.push([
+          this._paq.push([
             'trackEvent',
             'search bar used',
             this.page,
@@ -176,7 +181,7 @@
         if (this.page) {
           // checks to make sure pageView is not double counting initial pageload
           if (this.initialLoad > 1) {
-            _paq.push([
+            this._paq.push([
               'trackEvent',
               'in-app navigation',
               this.page,
