@@ -18,13 +18,12 @@
   }();
 
   // _paq array initialization and tracking script
-  let _paq;
-  _paq = _paq || [];
+  var _paq = _paq || [];
   _paq.push(['trackPageView']);
   _paq.push(['trackAllContentImpressions']);
   _paq.push(['enableLinkTracking']);
   _paq.push(['enableHeartBeatTimer']);
-  (function() {
+  (function(_paq) {
     let u='//unisitetracker.azurewebsites.net/';
     _paq.push(['setTrackerUrl', u + 'piwik.php']);
     _paq.push(['setSiteId', SITE_ID]);
@@ -32,7 +31,7 @@
     let d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
     g.type = 'text/javascript'; g.defer = true; g.async = true; g.src = u + 'piwik.js';
     s.parentNode.insertBefore(g, s);
-  })();
+  })(_paq);
 </script>
 
 <dom-module id='etools-piwik-analytics'>
@@ -76,10 +75,8 @@
       connectedCallback() {
         super.connectedCallback();
         // sets global event listeners, sets global error listener
-        Polymer.RenderStatus.beforeNextRender(this, () => {
-          document.addEventListener('tap', this.trackEvent.bind(this));
-          document.addEventListener('keyup', this.typing.bind(this));
-        });
+        document.addEventListener('tap', this.trackEvent.bind(this));
+        document.addEventListener('keyup', this.typing.bind(this));
       }
 
       initPiwik() {
