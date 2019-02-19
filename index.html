@@ -6,11 +6,14 @@
 
     <title>etools-piwik-analytics</title>
 
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script  src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script type="module" src="node_modules/@polymer/iron-component-page/iron-component-page.js"></script>
+    <script type="module" src="./etools-piwik-analytics.js"></script>
 
-    <link rel="import" href="bower_components/iron-component-page/iron-component-page.html">
   </head>
   <body>
-    <iron-component-page src="etools-piwik-analytics.html"></iron-component-page>
+    <iron-component-page>
+      <etools-piwik-analytics></etools-piwik-analytics>
+    </iron-component-page>
   </body>
 </html>
