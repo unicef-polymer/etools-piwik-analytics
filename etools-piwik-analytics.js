@@ -24,7 +24,7 @@ _paq.push(['trackAllContentImpressions']);
 _paq.push(['enableLinkTracking']);
 _paq.push(['enableHeartBeatTimer']);
 (function(_paq) {
-  let u='//unisitetracker.azurewebsites.net/';
+  let u='//unisitetracker.unicef.io/';
   _paq.push(['setTrackerUrl', u + 'piwik.php']);
   _paq.push(['setSiteId', SITE_ID]);
   // eslint-disable-next-line
