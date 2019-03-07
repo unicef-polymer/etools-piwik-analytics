@@ -8,11 +8,13 @@
     "eslint-plugin-html": "^4.0.5",
     "polymer-cli": "^1.7.7",
     "wct-browser-legacy": "^1.0.0",
-    "@polymer/iron-demo-helpers": "^3.0.0-pre.21"
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.21",
+    "@polymer/gen-typescript-declarations": "^1.6.0"
   },
   "scripts": {
     "lint:javascript": "eslint . --ext js,html && polymer lint && exit 0",
-    "lint": "npm run lint:javascript && polymer lint && exit 0"
+    "lint": "npm run lint:javascript && polymer lint && exit 0",
+    "gen-typings": "gen-typescript-declarations --deleteExisting --outDir './'"
   },
   "dependencies": {
     "@polymer/iron-component-page": "^4.0.1",
