@@ -126,6 +126,83 @@
               ])
               break
 
+            case 'ADD NEW TRIP':
+              _paq.push([
+                'trackEvent',
+                'add new trip',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name
+                })
+              ])
+              break
+
+            case 'SAVE':
+              _paq.push([
+                'trackEvent',
+                'save',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name
+                })
+              ])
+              break
+
+            case 'SAVE & SUBMIT':
+              _paq.push([
+                'trackEvent',
+                'save and submit',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name
+                })
+              ])
+              break
+
+            case 'CANCEL':
+              _paq.push([
+                'trackEvent',
+                'cancel',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name
+                })
+              ])
+              break
+
+            case 'PRINT':
+              _paq.push([
+                'trackEvent',
+                'print',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name
+                })
+              ])
+              break
+
+            case 'DUPLICATE TRIP':
+              _paq.push([
+                  'trackEvent',
+                  'duplicate trip',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name
+                  })
+                ])
+                break
+
+            case 'ADD DRIVER':
+              _paq.push([
+                  'trackEvent',
+                  'add driver',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name
+                  })
+                ])
+                break
+
             default:
               _paq.push([
                 'trackEvent',
