@@ -203,6 +203,28 @@
                 ])
                 break
 
+            case 'ADD NEW ENGAGEMENT':
+              _paq.push([
+                  'trackEvent',
+                  'add new engagement',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name
+                  })
+                ])
+                break
+
+            case 'ADD NEW STAFF SPOT CHECKS':
+              _paq.push([
+                  'trackEvent',
+                  'add new staff spot checks',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name
+                  })
+                ])
+                break
+                
             default:
               _paq.push([
                 'trackEvent',
