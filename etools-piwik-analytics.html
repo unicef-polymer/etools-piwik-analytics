@@ -70,7 +70,9 @@
 
       // sets user tracking info once it is passed in
       initPiwik: function() {
-        _paq.push(['setUserId', this.user.email])
+        if (this.user.email) {
+          _paq.push(['setUserId', this.user.email])
+        }
       },
 
       toastFired: function() {
