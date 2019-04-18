@@ -228,6 +228,28 @@
                   })
                 ])
                 break
+
+            case 'ADD NEW VENDOR':
+              _paq.push([
+                  'trackEvent',
+                  'add new vendor',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name
+                  })
+                ])
+                break
+
+            case 'ADD NEW VISIT':
+              _paq.push([
+                  'trackEvent',
+                  'add new visit',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name
+                  })
+                ])
+                break
                 
             default:
               _paq.push([
