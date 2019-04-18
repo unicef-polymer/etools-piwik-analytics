@@ -139,13 +139,145 @@
               ]);
               break;
 
-            default:
-                _paq.push([
+            case 'ADD NEW TRIP':
+              _paq.push([
+                'trackEvent',
+                'add new trip',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name;
+                })
+              ]);
+              break;
+
+            case 'SAVE':
+              _paq.push([
+                'trackEvent',
+                'save',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name;
+                })
+              ]);
+              break;
+
+            case 'SAVE & SUBMIT':
+              _paq.push([
+                'trackEvent',
+                'save and submit',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name;
+                })
+              ]);
+              break;
+
+            case 'CANCEL':
+              _paq.push([
+                'trackEvent',
+                'cancel',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name;
+                })
+              ]);
+              break;
+
+            case 'PRINT':
+              _paq.push([
+                'trackEvent',
+                'print',
+                this.page,
+                this.user.groups.map(function(g) {
+                  return g.name;
+                })
+              ]);
+              break;
+
+            case 'DUPLICATE TRIP':
+              _paq.push([
                   'trackEvent',
-                  'in-app navigation',
-                  document.location.pathname,
-                  'tap'
+                  'duplicate trip',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name;
+                  })
                 ]);
+                break;
+
+            case 'ADD DRIVER':
+              _paq.push([
+                  'trackEvent',
+                  'add driver',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name;
+                  })
+                ]);
+                break;
+
+            case 'ADD NEW ENGAGEMENT':
+              _paq.push([
+                  'trackEvent',
+                  'add new engagement',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name;
+                  })
+                ]);
+                break;
+
+            case 'ADD NEW STAFF SPOT CHECKS':
+              _paq.push([
+                  'trackEvent',
+                  'add new staff spot checks',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name;
+                  })
+                ]);
+                break;
+
+            case 'ADD NEW VENDOR':
+              _paq.push([
+                  'trackEvent',
+                  'add new vendor',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name;
+                  })
+                ]);
+                break;
+
+            case 'ADD NEW VISIT':
+              _paq.push([
+                  'trackEvent',
+                  'add new visit',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name;
+                  })
+                ]);
+                break;
+
+            case 'ADD ACTION POINT':
+              _paq.push([
+                  'trackEvent',
+                  'add action point',
+                  this.page,
+                  this.user.groups.map(function(g) {
+                    return g.name;
+                  })
+                ]);
+                break;
+                
+            default:
+              _paq.push([
+                'trackEvent',
+                'in-app navigation',
+                document.location.pathname,
+                'tap',
+              ]);
           }
         }
       }
