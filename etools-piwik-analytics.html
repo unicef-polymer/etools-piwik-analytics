@@ -58,9 +58,11 @@
         },
         user: {
           type: Object,
-          observer: 'initPiwik',
+          value: {}
         }
       },
+
+      observers: ['initPiwik(user.email)'],
 
       // sets global event listeners, sets global error listener
       attached: function() {
