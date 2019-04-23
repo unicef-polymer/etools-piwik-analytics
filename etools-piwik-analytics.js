@@ -79,7 +79,7 @@ class EtoolsPiwikAnalytics extends PolymerElement {
   }
 
   initPiwik() {
-    _paq.push(['setUserId', this.user.username]);
+    _paq.push(['setUserId', this.user.email]);
   }
 
   toastFired() {
