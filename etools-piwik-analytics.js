@@ -18,21 +18,24 @@ const SITE_ID = function() {
 }();
 
 // _paq array initialization and tracking script
-var _paq = _paq || [];
+if (!('_paq' in window)) {
+  window._paq = [];
+}
 _paq.push(['trackPageView']);
 _paq.push(['trackAllContentImpressions']);
 _paq.push(['enableLinkTracking']);
 _paq.push(['enableHeartBeatTimer']);
-(function(_paq) {
-  let u='//unisitetracker.unicef.io/';
-  _paq.push(['setTrackerUrl', u + 'piwik.php']);
-  _paq.push(['setSiteId', SITE_ID]);
-  // eslint-disable-next-line
-  let d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
-  g.type = 'text/javascript'; g.defer = true; g.async = true; g.src = u + 'piwik.js';
-  s.parentNode.insertBefore(g, s);
-})(_paq);
-
+var u='//unisitetracker.unicef.io/';
+_paq.push(['setTrackerUrl', u + 'piwik.php']);
+_paq.push(['setSiteId', SITE_ID]);
+var d = document,
+  g = d.createElement('script'),
+  s = d.getElementsByTagName('script')[0];
+g.type = 'text/javascript'
+g.defer = true
+g.async = true
+g.src = u + 'piwik.js';
+s.parentNode.insertBefore(g, s);
 
 /**
  * @polymer
@@ -67,7 +70,6 @@ class EtoolsPiwikAnalytics extends PolymerElement {
       }
     };
   }
-
 
   connectedCallback() {
     super.connectedCallback();
