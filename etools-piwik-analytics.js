@@ -25,7 +25,7 @@ _paq.push(['trackPageView']);
 _paq.push(['trackAllContentImpressions']);
 _paq.push(['enableLinkTracking']);
 _paq.push(['enableHeartBeatTimer']);
-var u='//unisitetracker.unicef.io/';
+var u='https:////unisitetracker.unicef.io/';
 _paq.push(['setTrackerUrl', u + 'piwik.php']);
 _paq.push(['setSiteId', SITE_ID]);
 var d = document,
