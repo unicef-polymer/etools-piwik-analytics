@@ -21,6 +21,10 @@ const SITE_ID = function() {
 if (!('_paq' in window)) {
   window._paq = [];
 }
+// disables tracking for local development
+if (SITE_ID === '6') {
+  _paq.push(['requireConsent']);
+}
 _paq.push(['trackPageView']);
 _paq.push(['trackAllContentImpressions']);
 _paq.push(['enableLinkTracking']);
