@@ -1,6 +1,6 @@
 {
   "name": "etools-piwik-analytics",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "devDependencies": {
     "babel-eslint": "^8.2.6",
     "eslint": "^5.2.0",
