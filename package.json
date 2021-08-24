@@ -1,5 +1,5 @@
 {
-  "name": "etools-piwik-analytics",
+  "name": "@unicef-polymer/etools-piwik-analytics",
   "version": "3.0.1",
   "devDependencies": {
     "babel-eslint": "^8.2.6",
