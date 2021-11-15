@@ -1,0 +1,7 @@
+node_modules/
+.idea/
+test/
+analysis.json
+.eslintignore
+.eslintrc.json
+index.html
