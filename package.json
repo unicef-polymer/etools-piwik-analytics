@@ -4,8 +4,8 @@
   "main": "etools-piwik-analytics.js",
   "module": "etools-piwik-analytics.js",
   "scripts": {
-    "lint:javascript": "eslint . --ext js,html && polymer lint && exit 0",
-    "lint": "npm run lint:javascript && polymer lint && exit 0",
+    "lint:javascript": "eslint . --ext js,html && exit 0",
+    "lint": "npm run lint:javascript && exit 0",
     "gen-typings": "gen-typescript-declarations --deleteExisting --outDir './'"
   },
   "dependencies": {
