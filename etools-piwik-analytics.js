@@ -90,7 +90,7 @@ class EtoolsPiwikAnalytics extends PolymerElement {
   }
 
   toastFired() {
-    if (!!this.toast) {
+    if (this.toast) {
       // eslint-disable-line
       _paq.push(['trackEvent', 'toast notification', this.page, this.toast]);
     }
@@ -101,7 +101,7 @@ class EtoolsPiwikAnalytics extends PolymerElement {
     const currentElem = e.detail.sourceEvent.currentTarget || e.detail.sourceEvent.target;
     let buttonText = currentElem.innerText;
 
-    if (currentElem && !['EXPORT', 'GET CHART', 'ADD FILTER', 'FILTERS'].includes(buttonText)) {
+    if (currentElem && buttonText && !['EXPORT', 'GET CHART', 'ADD FILTER', 'FILTERS'].includes(buttonText)) {
       const parentDiv = currentElem.closest('div');
       const isTranslatedFiltersButton = parentDiv ? parentDiv.id == 'filters-selector' : false;
       if (isTranslatedFiltersButton) {
@@ -109,7 +109,7 @@ class EtoolsPiwikAnalytics extends PolymerElement {
       }
     }
 
-    if (!!buttonText) {
+    if (buttonText) {
       // eslint-disable-line
       switch (buttonText) {
         // tracks document exports
