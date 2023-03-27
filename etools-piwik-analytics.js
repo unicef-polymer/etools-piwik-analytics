@@ -1,4 +1,4 @@
-import { PolymerElement } from '@polymer/polymer';
+import {PolymerElement} from '@polymer/polymer';
 import '@polymer/polymer/lib/utils/render-status.js';
 
 const SITE_ID = (function () {
@@ -57,24 +57,24 @@ class EtoolsPiwikAnalytics extends PolymerElement {
     return {
       page: {
         type: String,
-        observer: 'pageView',
+        observer: 'pageView'
       },
       queryEntered: {
         type: Boolean,
-        value: false,
+        value: false
       },
       toast: {
         type: String,
-        observer: 'toastFired',
+        observer: 'toastFired'
       },
       initialLoad: {
         type: Number,
-        value: 0,
+        value: 0
       },
       user: {
         type: Object,
-        observer: 'initPiwik',
-      },
+        observer: 'initPiwik'
+      }
     };
   }
 
@@ -98,18 +98,12 @@ class EtoolsPiwikAnalytics extends PolymerElement {
 
   // tracks exports and filtering
   trackEvent(e) {
-    const currentElem =
-      e.detail.sourceEvent.currentTarget || e.detail.sourceEvent.target;
+    const currentElem = e.detail.sourceEvent.currentTarget || e.detail.sourceEvent.target;
     let buttonText = currentElem.innerText;
 
-    if (
-      currentElem &&
-      !['EXPORT', 'GET CHART', 'ADD FILTER', 'FILTERS'].includes(buttonText)
-    ) {
+    if (currentElem && !['EXPORT', 'GET CHART', 'ADD FILTER', 'FILTERS'].includes(buttonText)) {
       const parentDiv = currentElem.closest('div');
-      const isTranslatedFiltersButton = parentDiv
-        ? parentDiv.id == 'filters-selector'
-        : false;
+      const isTranslatedFiltersButton = parentDiv ? parentDiv.id == 'filters-selector' : false;
       if (isTranslatedFiltersButton) {
         buttonText = 'ADD Filter';
       }
@@ -126,7 +120,7 @@ class EtoolsPiwikAnalytics extends PolymerElement {
             this.page,
             this.user.groups.map(function (g) {
               return g.name;
-            }),
+            })
           ]);
           break;
         // tracks filtered charts on dashboard/trips
@@ -137,7 +131,7 @@ class EtoolsPiwikAnalytics extends PolymerElement {
             this.page,
             this.user.groups.map(function (g) {
               return g.name;
-            }),
+            })
           ]);
           break;
         // tracks drop-down filtering in PMP
@@ -149,17 +143,12 @@ class EtoolsPiwikAnalytics extends PolymerElement {
             this.page,
             this.user.groups.map(function (g) {
               return g.name;
-            }),
+            })
           ]);
           break;
 
         default:
-          _paq.push([
-            'trackEvent',
-            'in-app navigation',
-            document.location.pathname,
-            'tap',
-          ]);
+          _paq.push(['trackEvent', 'in-app navigation', document.location.pathname, 'tap']);
       }
     }
   }
@@ -169,9 +158,7 @@ class EtoolsPiwikAnalytics extends PolymerElement {
     // events have different properties in IE vs Chrome; checks both
     const currentElement = event.composedPath()[0];
     let val = currentElement ? currentElement.value : '';
-    let isTypeSearch = currentElement
-      ? currentElement.type === 'search'
-      : false;
+    let isTypeSearch = currentElement ? currentElement.type === 'search' : false;
     if (val && isTypeSearch && this.queryEntered === false) {
       _paq.push([
         'trackEvent',
@@ -179,7 +166,7 @@ class EtoolsPiwikAnalytics extends PolymerElement {
         this.page,
         this.user.groups.map(function (g) {
           return g.name;
-        }),
+        })
       ]);
       this.set('queryEntered', true);
     }
