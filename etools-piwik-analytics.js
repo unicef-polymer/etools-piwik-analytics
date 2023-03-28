@@ -105,7 +105,7 @@ class EtoolsPiwikAnalytics extends PolymerElement {
       const parentDiv = currentElem.closest('div');
       const isTranslatedFiltersButton = parentDiv ? parentDiv.id == 'filters-selector' : false;
       if (isTranslatedFiltersButton) {
-        buttonText = 'ADD FILTER';
+        buttonText = 'FILTERS';
       }
     }
 
