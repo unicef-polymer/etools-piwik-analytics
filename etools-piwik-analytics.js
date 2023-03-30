@@ -1,8 +1,8 @@
-import {PolymerElement} from "@polymer/polymer";
-import "@polymer/polymer/lib/utils/render-status.js";
+import {PolymerElement} from '@polymer/polymer';
+import '@polymer/polymer/lib/utils/render-status.js';
 
-const SITE_ID = function() {
-  switch(window.location.host) {
+const SITE_ID = (function () {
+  switch (window.location.host) {
     case 'etools.unicef.org':
       return '1';
     case 'etools-dev.unicef.org':
@@ -18,7 +18,7 @@ const SITE_ID = function() {
     default:
       return '6';
   }
-}();
+})();
 
 // _paq array initialization and tracking script
 if (!('_paq' in window)) {
@@ -32,15 +32,15 @@ _paq.push(['trackPageView']);
 _paq.push(['trackAllContentImpressions']);
 _paq.push(['enableLinkTracking']);
 _paq.push(['enableHeartBeatTimer']);
-var u='https://unisitetracker.unicef.io/';
+var u = 'https://unisitetracker.unicef.io/';
 _paq.push(['setTrackerUrl', u + 'piwik.php']);
 _paq.push(['setSiteId', SITE_ID]);
 var d = document,
   g = d.createElement('script'),
   s = d.getElementsByTagName('script')[0];
-g.type = 'text/javascript'
-g.defer = true
-g.async = true
+g.type = 'text/javascript';
+g.defer = true;
+g.async = true;
 g.src = u + 'piwik.js';
 s.parentNode.insertBefore(g, s);
 
@@ -90,68 +90,65 @@ class EtoolsPiwikAnalytics extends PolymerElement {
   }
 
   toastFired() {
-    if (!!this.toast) { // eslint-disable-line
-      _paq.push([
-        'trackEvent',
-        'toast notification',
-        this.page,
-        this.toast
-      ]);
+    if (this.toast) {
+      // eslint-disable-line
+      _paq.push(['trackEvent', 'toast notification', this.page, this.toast]);
     }
   }
 
   // tracks exports and filtering
   trackEvent(e) {
-    let buttonText;
-    if (e.detail.sourceEvent.currentTarget) {
-      buttonText = e.detail.sourceEvent.currentTarget.innerText;
-    } else if (e.detail.sourceEvent.target.innerText) {
-      buttonText = e.detail.sourceEvent.target.innerText;
+    const currentElem = e.detail.sourceEvent.currentTarget || e.detail.sourceEvent.target;
+    let buttonText = currentElem.innerText;
+
+    if (currentElem && buttonText && !['EXPORT', 'GET CHART', 'ADD FILTER', 'FILTERS'].includes(buttonText)) {
+      const parentDiv = currentElem.parentElement ? currentElem.parentElement.parentElement : null;
+      const isTranslatedFiltersButton = parentDiv ? parentDiv.id == 'filters-selector' : false;
+      if (isTranslatedFiltersButton) {
+        buttonText = 'FILTERS';
+      }
     }
 
-    if (!!buttonText) { // eslint-disable-line
+    if (buttonText) {
+      // eslint-disable-line
       switch (buttonText) {
-          // tracks document exports
+        // tracks document exports
         case 'EXPORT':
           _paq.push([
             'trackEvent',
             'export',
             this.page,
-            this.user.groups.map(function(g) {
+            this.user.groups.map(function (g) {
               return g.name;
             })
           ]);
           break;
-          // tracks filtered charts on dashboard/trips
+        // tracks filtered charts on dashboard/trips
         case 'GET CHART':
           _paq.push([
             'trackEvent',
             'chart filtered',
             this.page,
-            this.user.groups.map(function(g) {
+            this.user.groups.map(function (g) {
               return g.name;
             })
           ]);
           break;
-          // tracks drop-down filtering in PMP
+        // tracks drop-down filtering in PMP
+        case 'FILTERS':
         case 'ADD FILTER':
           _paq.push([
             'trackEvent',
             'chart filtered',
             this.page,
-            this.user.groups.map(function(g) {
+            this.user.groups.map(function (g) {
               return g.name;
             })
           ]);
           break;
 
         default:
-          _paq.push([
-            'trackEvent',
-            'in-app navigation',
-            document.location.pathname,
-            'tap'
-          ]);
+          _paq.push(['trackEvent', 'in-app navigation', document.location.pathname, 'tap']);
       }
     }
   }
@@ -159,14 +156,15 @@ class EtoolsPiwikAnalytics extends PolymerElement {
   // checks if typing is in relevant input field, tracks search bar filtering
   typing(event) {
     // events have different properties in IE vs Chrome; checks both
-    let val = event.path ? !!event.path[0].value : !!event.target.value;
-    let id = event.path && event.path[7] ? event.path[7].id === 'query' : event.target.id === 'input';
-    if (val && id && this.queryEntered === false) {
+    const currentElement = event.composedPath()[0];
+    let val = currentElement ? currentElement.value : '';
+    let isTypeSearch = currentElement ? currentElement.type === 'search' : false;
+    if (val && isTypeSearch && this.queryEntered === false) {
       _paq.push([
         'trackEvent',
         'search bar used',
         this.page,
-        this.user.groups.map(function(g) {
+        this.user.groups.map(function (g) {
           return g.name;
         })
       ]);
@@ -179,12 +177,7 @@ class EtoolsPiwikAnalytics extends PolymerElement {
     if (this.page) {
       // checks to make sure pageView is not double counting initial pageload
       if (this.initialLoad > 1) {
-        _paq.push([
-          'trackEvent',
-          'in-app navigation',
-          this.page,
-          'tap'
-        ]);
+        _paq.push(['trackEvent', 'in-app navigation', this.page, 'tap']);
       }
       this.initialLoad += 1;
     }
