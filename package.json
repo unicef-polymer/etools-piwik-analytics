@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-piwik-analytics",
-  "version": "4.0.1-rc.1",
+  "version": "4.0.1-rc.2",
   "main": "etools-piwik-analytics.js",
   "module": "etools-piwik-analytics.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@polymer/polymer": "^3.4.1",
-    "lit": "^2.8.0"
+    "lit": "^2.7.5"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
