@@ -8,18 +8,17 @@
  *   etools-piwik-analytics.js
  */
 
-
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
 // tslint:disable:no-any describes the API as best we are able today
 
-import {PolymerElement} from '@polymer/polymer';
+import {LitElement} from 'lit';
 
-declare class EtoolsPiwikAnalytics extends PolymerElement {
-  page: string|null|undefined;
-  queryEntered: boolean|null|undefined;
-  toast: string|null|undefined;
-  initialLoad: number|null|undefined;
-  user: object|null|undefined;
+declare class EtoolsPiwikAnalytics extends LitElement {
+  page: string | null | undefined;
+  queryEntered: boolean | null | undefined;
+  toast: string | null | undefined;
+  initialLoad: number | null | undefined;
+  user: object | null | undefined;
   connectedCallback(): void;
   initPiwik(): void;
   toastFired(): void;
@@ -41,8 +40,7 @@ declare class EtoolsPiwikAnalytics extends PolymerElement {
 }
 
 declare global {
-
   interface HTMLElementTagNameMap {
-    "etools-piwik-analytics": EtoolsPiwikAnalytics;
+    'etools-piwik-analytics': EtoolsPiwikAnalytics;
   }
 }

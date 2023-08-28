@@ -44,7 +44,6 @@ g.src = u + 'piwik.js';
 s.parentNode.insertBefore(g, s);
 
 /**
- * @polymer
  * @customElement
  */
 class EtoolsPiwikAnalytics extends LitElement {
