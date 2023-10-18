@@ -1,5 +1,4 @@
-import {PolymerElement} from '@polymer/polymer';
-import '@polymer/polymer/lib/utils/render-status.js';
+import {LitElement} from 'lit';
 
 const SITE_ID = (function () {
   switch (window.location.host) {
@@ -45,10 +44,9 @@ g.src = u + 'piwik.js';
 s.parentNode.insertBefore(g, s);
 
 /**
- * @polymer
  * @customElement
  */
-class EtoolsPiwikAnalytics extends PolymerElement {
+class EtoolsPiwikAnalytics extends LitElement {
   static get is() {
     return 'etools-piwik-analytics';
   }
