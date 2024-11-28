@@ -25,15 +25,15 @@ if (!('_paq' in window)) {
 }
 // disables tracking for local development
 if (SITE_ID === '6') {
-  _paq.push(['requireConsent']);
+  window._paq.push(['requireConsent']);
 }
-_paq.push(['trackPageView']);
-_paq.push(['trackAllContentImpressions']);
-_paq.push(['enableLinkTracking']);
-_paq.push(['enableHeartBeatTimer']);
+window._paq.push(['trackPageView']);
+window._paq.push(['trackAllContentImpressions']);
+window._paq.push(['enableLinkTracking']);
+window._paq.push(['enableHeartBeatTimer']);
 var u = 'https://unisitetracker.unicef.io/';
-_paq.push(['setTrackerUrl', u + 'piwik.php']);
-_paq.push(['setSiteId', SITE_ID]);
+window._paq.push(['setTrackerUrl', u + 'piwik.php']);
+window._paq.push(['setSiteId', SITE_ID]);
 var d = document,
   g = d.createElement('script'),
   s = d.getElementsByTagName('script')[0];
@@ -84,13 +84,13 @@ class EtoolsPiwikAnalytics extends LitElement {
   }
 
   initPiwik() {
-    _paq.push(['setUserId', this.user.email]);
+    window._paq.push(['setUserId', this.user.email]);
   }
 
   toastFired() {
     if (this.toast) {
       // eslint-disable-line
-      _paq.push(['trackEvent', 'toast notification', this.page, this.toast]);
+      window._paq.push(['trackEvent', 'toast notification', this.page, this.toast]);
     }
   }
 
@@ -112,7 +112,7 @@ class EtoolsPiwikAnalytics extends LitElement {
       switch (buttonText) {
         // tracks document exports
         case 'EXPORT':
-          _paq.push([
+          window._paq.push([
             'trackEvent',
             'export',
             this.page,
@@ -123,7 +123,7 @@ class EtoolsPiwikAnalytics extends LitElement {
           break;
         // tracks filtered charts on dashboard/trips
         case 'GET CHART':
-          _paq.push([
+          window._paq.push([
             'trackEvent',
             'chart filtered',
             this.page,
@@ -135,7 +135,7 @@ class EtoolsPiwikAnalytics extends LitElement {
         // tracks drop-down filtering in PMP
         case 'FILTERS':
         case 'ADD FILTER':
-          _paq.push([
+          window._paq.push([
             'trackEvent',
             'chart filtered',
             this.page,
@@ -146,7 +146,7 @@ class EtoolsPiwikAnalytics extends LitElement {
           break;
 
         default:
-          _paq.push(['trackEvent', 'in-app navigation', document.location.pathname, 'tap']);
+          window._paq.push(['trackEvent', 'in-app navigation', document.location.pathname, 'tap']);
       }
     }
   }
@@ -158,7 +158,7 @@ class EtoolsPiwikAnalytics extends LitElement {
     let val = currentElement ? currentElement.value : '';
     let isTypeSearch = currentElement ? currentElement.type === 'search' : false;
     if (val && isTypeSearch && this.queryEntered === false) {
-      _paq.push([
+      window._paq.push([
         'trackEvent',
         'search bar used',
         this.page,
@@ -175,7 +175,7 @@ class EtoolsPiwikAnalytics extends LitElement {
     if (this.page) {
       // checks to make sure pageView is not double counting initial pageload
       if (this.initialLoad > 1) {
-        _paq.push(['trackEvent', 'in-app navigation', this.page, 'tap']);
+        window._paq.push(['trackEvent', 'in-app navigation', this.page, 'tap']);
       }
       this.initialLoad += 1;
     }

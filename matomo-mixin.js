@@ -18,7 +18,7 @@ function MatomoMixin(baseClass) {
       window._paq.push([
         'trackEvent',
         trackingObject.event,
-        trackingObject.page,
+        trackingObject.page
       ]);
     }
   };
