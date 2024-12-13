@@ -89,7 +89,6 @@ class EtoolsPiwikAnalytics extends LitElement {
 
   toastFired() {
     if (this.toast) {
-      // eslint-disable-line
       window._paq.push(['trackEvent', 'toast notification', this.page, this.toast]);
     }
   }
@@ -108,7 +107,6 @@ class EtoolsPiwikAnalytics extends LitElement {
     }
 
     if (buttonText) {
-      // eslint-disable-line
       switch (buttonText) {
         // tracks document exports
         case 'EXPORT':
