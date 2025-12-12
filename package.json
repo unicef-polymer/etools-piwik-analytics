@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-piwik-analytics",
-  "version": "5.0.0-rc.1",
+  "version": "5.0.0",
   "main": "etools-piwik-analytics.js",
   "module": "etools-piwik-analytics.js",
   "type": "module",
