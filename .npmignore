@@ -1,0 +1,6 @@
+node_modules/
+.idea/
+analysis.json
+.eslintignore
+.eslintrc.json
+index.html

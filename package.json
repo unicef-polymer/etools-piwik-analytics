@@ -1,0 +1,29 @@
+{
+  "name": "@unicef-polymer/etools-piwik-analytics",
+  "version": "5.0.0",
+  "main": "src/etools-piwik-analytics.js",
+  "module": "src/etools-piwik-analytics.js",
+  "type": "module",
+  "scripts": {
+    "lint:javascript": "eslint *.js --no-warn-ignored",
+    "lint": "npm run lint:javascript",
+    "gen-typings": "gen-typescript-declarations --deleteExisting --outDir './'"
+  },
+  "dependencies": {
+    "lit": "^3.2.1"
+  },
+  "devDependencies": {
+    "eslint": "^9.16.0",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.16.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-html": "^8.1.2",
+    "eslint-plugin-lit": "^1.15.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.4.2",
+    "globals": "^15.13.0"
+  },
+  "engines": {
+    "node": ">=8.0"
+  }
+}
